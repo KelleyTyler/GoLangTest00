@@ -2,11 +2,11 @@
 
 `
 
->>cd app
+\>cd app
 
->>go build -o bin/ app/main.go
+\>go build -o bin/ app/main.go
 
->>cd ..
+\>cd ..
 
 `
 go run app/main.go
