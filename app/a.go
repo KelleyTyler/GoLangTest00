@@ -29,6 +29,35 @@ func GetUserOutputString(usr User) string {
 	return fmt.Sprintf("Name: %-10s %-20s\nGender: %s\nID NUMBER: %4d\nScore:%3.2f", usr.first_name, usr.last_name, usr.gender, usr.id_Number, usr.user_score)
 }
 
+func GetUserOutputStringBox(usr User) string {
+	temp0 := fmt.Sprintf("╔" + "══════════" + "══════════" + "══════════" + "══════════" + "══════════" + "══════" + "╗\n")
+	temp0 += fmt.Sprintf("║%15s %5s%-15s %20s\n", " ", " ", "-USER DATA-", "║")
+	temp0 += fmt.Sprintf("║%15s %5s%-15s %20s\n", " ", " ", " ", "║")
+	temp0 += fmt.Sprintf("║%15s%10s, %-20s%10s\n", "Name:", usr.first_name, usr.last_name, "║")
+	temp0 += fmt.Sprintf("║%15s %10s %30s\n", "Gender:", usr.gender, "║")
+	temp0 += fmt.Sprintf("║%15s %10d %30s\n", "ID NUMBER:", usr.id_Number, "║")
+	temp0 += fmt.Sprintf("║%15s %10.2f %30s\n", "Score:", usr.user_score, "║")
+	temp0 += fmt.Sprintf("║%15s %5s%-15s %20s\n", " ", " ", " ", "║")
+	temp0 += fmt.Sprintf("╚" + "══════════" + "══════════" + "══════════" + "══════════" + "══════════" + "══════" + "╝")
+	return temp0
+}
+func GetUserOutputStringBox2(usr User) string {
+	temp0 := fmt.Sprintf("╔" + "══════════" + "══════════" + "══════════" + "══════════" + "═════" + "╗\n")
+	temp0 += fmt.Sprintf("║%15s %-15s%15s\n", " ", "-USER DATA-", "║")
+	temp0 += fmt.Sprintf("║%10s %-15s%20s\n", " ", " ", "║")
+	temp0 += fmt.Sprintf("║%10s:%10s, %-20s%3s\n", "Name", usr.first_name, usr.last_name, "║")
+	temp0 += fmt.Sprintf("║%10s:%10s%25s\n", "Gender", usr.gender, "║")
+	temp0 += fmt.Sprintf("║%10s:%10d%25s\n", "ID NUMBER", usr.id_Number, "║")
+	temp0 += fmt.Sprintf("║%10s:%10.2f%25s\n", "Score", usr.user_score, "║")
+	temp0 += fmt.Sprintf("║%10s %-15s%20s\n", " ", " ", "║")
+	temp0 += fmt.Sprintf("╚" + "══════════" + "══════════" + "══════════" + "══════════" + "═════" + "╝")
+	return temp0
+}
+
+type UserData struct {
+	userProf User
+}
+
 func WriterHelper(writr *bufio.Writer, str string) {
 	writr.WriteString(str)
 	writr.Flush()
@@ -97,6 +126,28 @@ func GetArrayOfNumbersLim(readr *bufio.Reader, lim int) ([]int, error) {
 	return tempAr, err
 }
 
+/*Returns a true or false statement; taking into account the
+ */
+func GetYN(readr *bufio.Reader, writr *bufio.Writer) (bool, error) {
+
+	var output = false
+	strng, err := MyBufIOStringRead(readr)
+	for {
+		if strng == "y" {
+			output = true
+			break
+		} else if strng == "n" {
+			output = false
+			break
+		} else {
+			WriterHelperNL(writr, "PLEASE HAVE CORRECT OUTPUT, Y/N?")
+			strng, err = MyBufIOStringRead(readr)
+		}
+
+	}
+	return output, err
+}
+
 func ShellStuff(readr *bufio.Reader, writr *bufio.Writer) int {
 	strng, err := MyBufIOStringReadArray(readr)
 	if err != nil {
@@ -106,23 +157,24 @@ func ShellStuff(readr *bufio.Reader, writr *bufio.Writer) int {
 	if len(strng) > 0 {
 		switch {
 		case strng[0] == "new":
-			WriterHelperNL(writr, "NEW:"+" "+strng[1])
+			WriterHelperNL(writr, "NEW:"+" "+strng[1]+" "+"Y/N?")
+
 			ret = 5
 			break
 		case strng[0] == "info":
-			WriterHelperNL(writr, "USER INFO:"+" "+strng[1])
+			WriterHelperNL(writr, "USER INFO:"+" "+strng[1]+" "+"Y/N?")
 			ret = 4
 			break
 		case strng[0] == "load":
-			WriterHelperNL(writr, "LOAD:"+" "+strng[1])
+			WriterHelperNL(writr, "LOAD:"+" "+strng[1]+" "+"Y/N?")
 			ret = 3
 			break
 		case strng[0] == "save":
-			WriterHelperNL(writr, "SAVE:"+" "+strng[1])
+			WriterHelperNL(writr, "SAVE:"+" "+strng[1]+" "+"Y/N?")
 			ret = 2
 			break
 		case strng[0] == "delete":
-			WriterHelperNL(writr, "DELETE:"+" "+strng[1])
+			WriterHelperNL(writr, "DELETE:"+" "+strng[1]+" "+"Y/N?")
 			ret = 1
 			break
 		case strng[0] == "quit":

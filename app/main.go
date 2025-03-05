@@ -13,6 +13,8 @@ func main() {
 	uIWriter := bufio.NewWriter(os.Stdout)
 	//var uInStr string = ""
 	//---------------------
+	usr0 := CreateUser("John", "Doe", 12424, "M")
+	fmt.Print(GetUserOutputStringBox2(usr0))
 	fmt.Printf("\n---WELCOME!---\n--BASIC SHELL--\n-----------------\n")
 	for {
 		//fmt.Printf(">")
