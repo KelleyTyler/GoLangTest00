@@ -105,6 +105,10 @@ func ShellStuff(readr *bufio.Reader, writr *bufio.Writer) int {
 	var ret int = 0
 	if len(strng) > 0 {
 		switch {
+		case strng[0] == "new":
+			WriterHelperNL(writr, "NEW:"+" "+strng[1])
+			ret = 5
+			break
 		case strng[0] == "info":
 			WriterHelperNL(writr, "USER INFO:"+" "+strng[1])
 			ret = 4
