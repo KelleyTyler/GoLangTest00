@@ -139,42 +139,15 @@ func (stng Settings) ReadFromFile(fp string) Settings {
 		}
 	}()
 	rdr := bufio.NewReader(jSonFile)
-	//rdal, err2 := io.ReadAll(rdr)
 	rdal, err2 := io.ReadAll(rdr)
 	if err2 != nil {
 		panic(err2)
 	}
-	// rTemp2, err2 := io.ReadAll(rdr)
-	// if err2 != nil {
-	// 	panic(err2)
 
-	// }
-
-	// for _, re := range rdal {
-	// 	fmt.Printf("%c", rune(re))
-	// }
 	err3 := json.Unmarshal(rdal, &temp)
 	if err3 != nil {
 		panic(err3)
 	}
-	// fmt.Print("\n \n TEMP: ")
-	// fmt.Print(temp)
-	// fmt.Print("\n \n")
+
 	return temp
 }
-
-/*
-This returns the file names located at XYZ folderpath;
-*/
-// func getListOfFiles(folderPath string) ([]string, error) {
-// 	var outStr []string
-
-// 	return outStr, nil
-// }
-
-/*
-
- */
-// func InitReader() {
-
-// }
