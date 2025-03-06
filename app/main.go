@@ -19,7 +19,8 @@ func main() {
 	mySettings = mySettings.ReadFromFile("init.json")
 	mySettings.PrintDisplayStrings(uIWriter)
 	usr0 := CreateUser("John", "Doe", 12424, "M")
-	fmt.Print(GetUserOutputStringBox2(usr0))
+	//fmt.Print(GetUserOutputStringBox2(usr0))
+	usr0.PrintOutPutBox(uIWriter)
 	fmt.Printf("\n---WELCOME!---\n--BASIC SHELL--\n-----------------\n")
 	for {
 		//fmt.Printf(">")

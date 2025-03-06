@@ -25,33 +25,27 @@ func CreateUser(fname string, lname string, idNum int, gen string) User {
 	//seekvalidation;
 	return temp
 }
-func GetUserOutputString(usr User) string {
+func (usr User) GetUserOutputString() string {
 	return fmt.Sprintf("Name: %-10s %-20s\nGender: %s\nID NUMBER: %4d\nScore:%3.2f", usr.first_name, usr.last_name, usr.gender, usr.id_Number, usr.user_score)
 }
 
-func GetUserOutputStringBox(usr User) string {
-	temp0 := fmt.Sprintf("╔" + "══════════" + "══════════" + "══════════" + "══════════" + "══════════" + "══════" + "╗\n")
-	temp0 += fmt.Sprintf("║%15s %5s%-15s %20s\n", " ", " ", "-USER DATA-", "║")
-	temp0 += fmt.Sprintf("║%15s %5s%-15s %20s\n", " ", " ", " ", "║")
-	temp0 += fmt.Sprintf("║%15s%10s, %-20s%10s\n", "Name:", usr.first_name, usr.last_name, "║")
-	temp0 += fmt.Sprintf("║%15s %10s %30s\n", "Gender:", usr.gender, "║")
-	temp0 += fmt.Sprintf("║%15s %10d %30s\n", "ID NUMBER:", usr.id_Number, "║")
-	temp0 += fmt.Sprintf("║%15s %10.2f %30s\n", "Score:", usr.user_score, "║")
-	temp0 += fmt.Sprintf("║%15s %5s%-15s %20s\n", " ", " ", " ", "║")
-	temp0 += fmt.Sprintf("╚" + "══════════" + "══════════" + "══════════" + "══════════" + "══════════" + "══════" + "╝")
-	return temp0
+func (usr User) GetOutputBox() [9]string {
+	var temp [9]string
+	temp[0] = fmt.Sprintf("╔" + "══════════" + "══════════" + "══════════" + "══════════" + "═════" + "╗")
+	temp[1] = fmt.Sprintf("║%15s %-15s%15s", " ", "-USER DATA-", "║")
+	temp[2] = fmt.Sprintf("║%10s %-15s%20s", " ", " ", "║")
+	temp[3] = fmt.Sprintf("║%10s:%10s, %-20s%3s", "Name", usr.first_name, usr.last_name, "║")
+	temp[4] = fmt.Sprintf("║%10s:%10s%25s", "Gender", usr.gender, "║")
+	temp[5] = fmt.Sprintf("║%10s:%10d%25s", "ID NUMBER", usr.id_Number, "║")
+	temp[6] = fmt.Sprintf("║%10s:%10.2f%25s", "Score", usr.user_score, "║")
+	temp[7] = fmt.Sprintf("║%10s %-15s%20s", " ", " ", "║")
+	temp[8] = fmt.Sprintf("╚" + "══════════" + "══════════" + "══════════" + "══════════" + "═════" + "╝")
+	return temp
 }
-func GetUserOutputStringBox2(usr User) string {
-	temp0 := fmt.Sprintf("╔" + "══════════" + "══════════" + "══════════" + "══════════" + "═════" + "╗\n")
-	temp0 += fmt.Sprintf("║%15s %-15s%15s\n", " ", "-USER DATA-", "║")
-	temp0 += fmt.Sprintf("║%10s %-15s%20s\n", " ", " ", "║")
-	temp0 += fmt.Sprintf("║%10s:%10s, %-20s%3s\n", "Name", usr.first_name, usr.last_name, "║")
-	temp0 += fmt.Sprintf("║%10s:%10s%25s\n", "Gender", usr.gender, "║")
-	temp0 += fmt.Sprintf("║%10s:%10d%25s\n", "ID NUMBER", usr.id_Number, "║")
-	temp0 += fmt.Sprintf("║%10s:%10.2f%25s\n", "Score", usr.user_score, "║")
-	temp0 += fmt.Sprintf("║%10s %-15s%20s\n", " ", " ", "║")
-	temp0 += fmt.Sprintf("╚" + "══════════" + "══════════" + "══════════" + "══════════" + "═════" + "╝")
-	return temp0
+func (usr User) PrintOutPutBox(wrtr *bufio.Writer) {
+	for _, s := range usr.GetOutputBox() {
+		WriterHelperNL(wrtr, s)
+	}
 }
 
 /*This makes a text box; it's the long version of doing it however; very inefficient

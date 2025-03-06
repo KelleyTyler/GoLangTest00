@@ -164,6 +164,15 @@ func (stng Settings) ReadFromFile(fp string) Settings {
 }
 
 /*
+This returns the file names located at XYZ folderpath;
+*/
+// func getListOfFiles(folderPath string) ([]string, error) {
+// 	var outStr []string
+
+// 	return outStr, nil
+// }
+
+/*
 
  */
 // func InitReader() {
