@@ -54,9 +54,9 @@ func GetUserOutputStringBox2(usr User) string {
 	return temp0
 }
 
-type UserData struct {
-	userProf User
-}
+// type UserData struct {
+// 	userProf User
+// }
 
 func WriterHelper(writr *bufio.Writer, str string) {
 	writr.WriteString(str)
@@ -156,29 +156,39 @@ func ShellStuff(readr *bufio.Reader, writr *bufio.Writer) int {
 	var ret int = 0
 	if len(strng) > 0 {
 		switch {
-		case strng[0] == "new":
+		case strng[0] == "list":
+			WriterHelperNL(writr, "LIST:"+" "+strng[1]+" "+"Y/N?")
+
+			ret = 6
+			break
+		case strng[0] == "New":
 			WriterHelperNL(writr, "NEW:"+" "+strng[1]+" "+"Y/N?")
 
 			ret = 5
 			break
-		case strng[0] == "info":
-			WriterHelperNL(writr, "USER INFO:"+" "+strng[1]+" "+"Y/N?")
-			ret = 4
-			break
 		case strng[0] == "load":
 			WriterHelperNL(writr, "LOAD:"+" "+strng[1]+" "+"Y/N?")
-			ret = 3
+
+			ret = 4
 			break
 		case strng[0] == "save":
 			WriterHelperNL(writr, "SAVE:"+" "+strng[1]+" "+"Y/N?")
+
+			ret = 3
+			break
+		case strng[0] == "info":
+			WriterHelperNL(writr, "USER INFO:"+" "+strng[1]+" "+"Y/N?")
+
 			ret = 2
 			break
 		case strng[0] == "delete":
 			WriterHelperNL(writr, "DELETE:"+" "+strng[1]+" "+"Y/N?")
+
 			ret = 1
 			break
 		case strng[0] == "quit":
 			WriterHelperNL(writr, "QUITTING")
+
 			ret = -1
 			break
 		default:
@@ -186,6 +196,6 @@ func ShellStuff(readr *bufio.Reader, writr *bufio.Writer) int {
 			ret = 0
 		}
 	}
-	fmt.Printf("----------\n")
+	fmt.Printf("\n---o---\n")
 	return ret
 }
