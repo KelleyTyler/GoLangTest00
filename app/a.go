@@ -54,6 +54,25 @@ func GetUserOutputStringBox2(usr User) string {
 	return temp0
 }
 
+/*This makes a text box; it's the long version of doing it however; very inefficient
+ */
+func MakeATextBoxLong(strng []string) {
+	var longest int = 0
+	for i := 0; i < len(strng); i++ {
+		if len(strng[i]) > longest {
+			longest = len(strng[i])
+		}
+	}
+	temps := "╔"
+	for j := 0; j < longest; j++ {
+		temps += "═"
+	}
+	temps += "╗\n"
+	for i := 0; i < len(strng); i++ {
+
+	}
+}
+
 // type UserData struct {
 // 	userProf User
 // }
@@ -155,13 +174,16 @@ func ShellStuff(readr *bufio.Reader, writr *bufio.Writer) int {
 	}
 	var ret int = 0
 	if len(strng) > 0 {
+		if len(strng) < 2 {
+			strng = append(strng, "null")
+		}
 		switch {
 		case strng[0] == "list":
 			WriterHelperNL(writr, "LIST:"+" "+strng[1]+" "+"Y/N?")
 
 			ret = 6
 			break
-		case strng[0] == "New":
+		case strng[0] == "new":
 			WriterHelperNL(writr, "NEW:"+" "+strng[1]+" "+"Y/N?")
 
 			ret = 5
